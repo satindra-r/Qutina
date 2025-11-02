@@ -32,6 +32,7 @@ void main() {
 # Physical screen dimensions in cm
 SCREEN_WIDTH_CM = float(input("Enter screen width (cm): "))
 SCREEN_HEIGHT_CM = float(input("Enter screen height (cm): "))
+FOCUS_RECT = input("Enter focus rect (y/n): ").startswith("y")
 
 # Cube vertices (in cm, behind the screen)
 points = [[-1, 1, -1], [1, 1, -1], [1, -1, -1], [-1, -1, -1],
@@ -39,6 +40,8 @@ points = [[-1, 1, -1], [1, 1, -1], [1, -1, -1], [-1, -1, -1],
 points = [[p[0] * 5, p[1] * 5, p[2] * 5 + 50] for p in points]
 
 points.extend([[-25, -5, 100], [25, -5, 100], [25, -5, 0], [-25, -5, 0]])
+
+points = [[p[0], p[1] - 15, p[2]] for p in points]
 
 faces = [[0, 1, 2, [1, 0, 0]], [0, 2, 3, [1, 0, 0]],
 		 [1, 5, 6, [0, 1, 0]], [1, 6, 2, [0, 1, 0]],
@@ -203,7 +206,7 @@ def main():
 	global faces
 	global points
 
-	QR.init(SCREEN_WIDTH_CM, SCREEN_HEIGHT_CM)
+	QR.init(SCREEN_WIDTH_CM, SCREEN_HEIGHT_CM, FOCUS_RECT)
 	pygame.init()
 
 	info = pygame.display.Info()
